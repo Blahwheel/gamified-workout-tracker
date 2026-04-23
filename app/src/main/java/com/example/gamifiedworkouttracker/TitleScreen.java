@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ public class TitleScreen extends AppCompatActivity {
     Button pumpIron;
     ImageView benchUp;
     ImageView gymImage;
+    ProgressBar progressBar;
+    TextView progressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +52,20 @@ public class TitleScreen extends AppCompatActivity {
         pumpIron = findViewById(R.id.pumpIron);
         benchUp = findViewById(R.id.benchUp);
         gymImage = findViewById(R.id.gymImage);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setMax(100);
+        progressText = findViewById(R.id.progressText);
+
 
         pumpIron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 workoutTracker.doRep();
+                int progress = workoutTracker.getProgress();
+                progressBar.setProgress(progress);
+                String level = Integer.toString(workoutTracker.getLevel());
+                progressText.setText(level);
 
                 benchUp.setVisibility(View.VISIBLE);
                 gymImage.setVisibility(View.INVISIBLE);
@@ -70,5 +81,10 @@ public class TitleScreen extends AppCompatActivity {
             }
         });
 
+    }
+
+    // REQUIRES: x <= max
+    public void updateProgress(int x) {
+        progressBar.setProgress(x);
     }
 }
