@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.example.gamifiedworkouttracker.WorkoutTracker;
+
 
 public class TitleScreen extends AppCompatActivity {
 
@@ -25,6 +28,7 @@ public class TitleScreen extends AppCompatActivity {
     Button pumpIron;
     ImageView benchUp;
     ImageView gymImage;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,11 @@ public class TitleScreen extends AppCompatActivity {
     }
     private void initWidgets() {
         textBox = findViewById(R.id.textBox);
+        progressBar = findViewById(R.id.progressBar);
         pumpIron = findViewById(R.id.pumpIron);
         benchUp = findViewById(R.id.benchUp);
         gymImage = findViewById(R.id.gymImage);
+        progressBar.setMax(100);
 
         pumpIron.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +75,8 @@ public class TitleScreen extends AppCompatActivity {
                 scheduler.shutdown(); // Close when no longer needed
             }
         });
-
+    }
+    private void changeProgressBar(int percentage) {
+        progressBar.setProgress(percentage);
     }
 }
