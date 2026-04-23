@@ -12,11 +12,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+
 public class TitleScreen extends AppCompatActivity {
 
     TextView textBox;
     Button pumpIron;
-    ImageView imageView;
+    ImageView benchUp;
+    ImageView gymImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +37,24 @@ public class TitleScreen extends AppCompatActivity {
 
         textBox = findViewById(R.id.textBox);
         pumpIron = findViewById(R.id.pumpIron);
-        imageView = findViewById(R.id.imageView);
+        benchUp = findViewById(R.id.benchUp);
+        gymImage = findViewById(R.id.gymImage);
 
         pumpIron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageView.setVisibility(View.VISIBLE);
+
+                benchUp.setVisibility(View.VISIBLE);
+                gymImage.setVisibility(View.INVISIBLE);
+
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                scheduler.schedule(() -> {
+                    benchUp.setVisibility(View.INVISIBLE);
+                    gymImage.setVisibility(View.VISIBLE);
+                }, 3, TimeUnit.SECONDS);
+
+                scheduler.shutdown(); // Close when no longer needed
             }
         });
     }
