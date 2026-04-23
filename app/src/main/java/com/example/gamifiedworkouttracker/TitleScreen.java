@@ -19,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TitleScreen extends AppCompatActivity {
 
+    // fields
+    WorkoutTracker workoutTracker;
     TextView textBox;
     Button pumpIron;
     ImageView benchUp;
@@ -26,6 +28,8 @@ public class TitleScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // system stuff
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_title_screen);
@@ -35,6 +39,12 @@ public class TitleScreen extends AppCompatActivity {
             return insets;
         });
 
+        // our stuff
+        workoutTracker = new WorkoutTracker();
+        initWidgets();
+
+    }
+    private void initWidgets() {
         textBox = findViewById(R.id.textBox);
         pumpIron = findViewById(R.id.pumpIron);
         benchUp = findViewById(R.id.benchUp);
@@ -43,6 +53,8 @@ public class TitleScreen extends AppCompatActivity {
         pumpIron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                workoutTracker.doRep();
 
                 benchUp.setVisibility(View.VISIBLE);
                 gymImage.setVisibility(View.INVISIBLE);
@@ -57,5 +69,6 @@ public class TitleScreen extends AppCompatActivity {
                 scheduler.shutdown(); // Close when no longer needed
             }
         });
+
     }
 }
