@@ -61,4 +61,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/gym" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gymImage"
+        app:layout_constraintEnd_toEndOf="@+id/gymImage"
+        app:layout_constraintStart_toStartOf="@+id/gymImage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
