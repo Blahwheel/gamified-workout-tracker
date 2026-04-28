@@ -1,28 +1,39 @@
 package com.example.gamifiedworkouttracker;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class WorkoutTracker {
 
-    private int repsDone;
+    private Map<String, ExerciseTracker> exercises;
     private int xp;
     private int level;
     private int threshold;
 
     public WorkoutTracker() {
-        repsDone = 0;
+        exercises = new HashMap<>();
         xp = 0;
         level = 0;
         threshold = 1000;
     }
-    public int getReps() {
-        return repsDone;
+
+    public void doRep(String exerciseName, int weight) {
+        if (!exercises.containsKey(exerciseName)) {
+            exercises.put(exerciseName, new ExerciseTracker(exerciseName, 1.0));
+        }
+        ExerciseTracker exercise = exercises.get(exerciseName);
+        int exp = exercise.addRep(weight);
+        grantXP(exp);
+
+    }
+    public void addExercise(String exerciseName, double weightMultiplier) {
+        exercises.put(exerciseName, new ExerciseTracker(exerciseName, weightMultiplier));
     }
 
-    public void doRep() {
-        repsDone++;
-        grantXP();
-    }
-
-    private void grantXP() {
-        xp += 70;
+    private void grantXP(int xpToGrant) {
+        xp += xpToGrant;
 
         if (xp >= threshold) {
             xp = xp - threshold;

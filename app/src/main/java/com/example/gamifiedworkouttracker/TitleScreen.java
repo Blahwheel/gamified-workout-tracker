@@ -43,48 +43,48 @@ public class TitleScreen extends AppCompatActivity {
         });
 
         // our stuff
-        workoutTracker = new WorkoutTracker();
-        initWidgets();
+//        workoutTracker = new WorkoutTracker();
+//        initWidgets();
 
     }
-    private void initWidgets() {
-        textBox = findViewById(R.id.textBox);
-        pumpIron = findViewById(R.id.pumpIron);
-        benchUp = findViewById(R.id.benchUp);
-        gymImage = findViewById(R.id.gymImage);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setMax(100);
-        progressText = findViewById(R.id.progressText);
+//    private void initWidgets() {
+//        textBox = findViewById(R.id.textBox);
+//        pumpIron = findViewById(R.id.pumpIron);
+//        benchUp = findViewById(R.id.benchUp);
+//        gymImage = findViewById(R.id.gymImage);
+//        progressBar = findViewById(R.id.progressBar);
+//        progressBar.setMax(100);
+//        progressText = findViewById(R.id.progressText);
+//
+//
+//        pumpIron.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                workoutTracker.doRep();
+//                int progress = workoutTracker.getProgress();
+//                progressBar.setProgress(progress);
+//                String level = Integer.toString(workoutTracker.getLevel());
+//                progressText.setText(level);
+//
+//                benchUp.setVisibility(View.VISIBLE);
+//                gymImage.setVisibility(View.INVISIBLE);
+//
+//
+//                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+//                scheduler.schedule(() -> {
+//                    benchUp.setVisibility(View.INVISIBLE);
+//                    gymImage.setVisibility(View.VISIBLE);
+//                }, 3, TimeUnit.SECONDS);
+//
+//                scheduler.shutdown(); // Close when no longer needed
+//            }
+//        });
+//
+//    }
 
-
-        pumpIron.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                workoutTracker.doRep();
-                int progress = workoutTracker.getProgress();
-                progressBar.setProgress(progress);
-                String level = Integer.toString(workoutTracker.getLevel());
-                progressText.setText(level);
-
-                benchUp.setVisibility(View.VISIBLE);
-                gymImage.setVisibility(View.INVISIBLE);
-
-
-                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-                scheduler.schedule(() -> {
-                    benchUp.setVisibility(View.INVISIBLE);
-                    gymImage.setVisibility(View.VISIBLE);
-                }, 3, TimeUnit.SECONDS);
-
-                scheduler.shutdown(); // Close when no longer needed
-            }
-        });
-
-    }
-
-    // REQUIRES: x <= max
-    public void updateProgress(int x) {
-        progressBar.setProgress(x);
-    }
+//    // REQUIRES: x <= max
+//    public void updateProgress(int x) {
+//        progressBar.setProgress(x);
+//    }
 }

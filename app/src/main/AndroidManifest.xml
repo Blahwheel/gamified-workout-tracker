@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GamifiedWorkoutTracker">
         <activity
+            android:name=".ExerciseSelectionScreen"
+            android:exported="false" />
+        <activity
             android:name=".TitleScreen"
             android:exported="true">
             <intent-filter>
