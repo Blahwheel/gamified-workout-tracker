@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +23,10 @@ import java.util.concurrent.TimeUnit;
 public class TitleScreen extends AppCompatActivity {
 
     // fields
-    WorkoutTracker workoutTracker;
+    private WorkoutDao workoutDao;
+    private WorkoutTracker workoutTracker;
+    private final Executor dbExecutor = Executors.newSingleThreadExecutor();
+    
     TextView textBox;
     Button pumpIron;
     ImageView benchUp;
@@ -42,10 +47,38 @@ public class TitleScreen extends AppCompatActivity {
             return insets;
         });
 
-        // our stuff
-        workoutTracker = new WorkoutTracker();
-        initWidgets();
+        AppDatabase db = Room.databaseBuilder(
+                getApplicationContext(),
+                AppDatabase.class,
+                "workout-db"
+        ).build();
 
+
+        // our stuff
+        workoutDao = db.workoutDao();
+        initWidgets();
+        loadTrackerData();
+    }
+
+    private void loadTrackerData() {
+        dbExecutor.execute(() -> {
+            WorkoutTracker saved = workoutDao.getTracker();
+            if (saved != null) {
+                workoutTracker = saved;
+            } else {
+                workoutTracker = new WorkoutTracker();
+                workoutDao.saveTracker(workoutTracker);
+            }
+            
+            runOnUiThread(this::updateUI);
+        });
+    }
+
+    private void updateUI() {
+        if (workoutTracker != null) {
+            progressBar.setProgress(workoutTracker.getProgress());
+            progressText.setText(String.valueOf(workoutTracker.getLevel()));
+        }
     }
     private void initWidgets() {
         textBox = findViewById(R.id.textBox);
@@ -60,12 +93,13 @@ public class TitleScreen extends AppCompatActivity {
         pumpIron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (workoutTracker == null) return;
 
                 workoutTracker.doRep();
-                int progress = workoutTracker.getProgress();
-                progressBar.setProgress(progress);
-                String level = Integer.toString(workoutTracker.getLevel());
-                progressText.setText(level);
+                updateUI();
+                dbExecutor.execute(() -> {
+                    workoutDao.saveTracker(workoutTracker);
+                });
 
                 benchUp.setVisibility(View.VISIBLE);
                 gymImage.setVisibility(View.INVISIBLE);
@@ -73,17 +107,17 @@ public class TitleScreen extends AppCompatActivity {
 
                 ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
                 scheduler.schedule(() -> {
-                    benchUp.setVisibility(View.INVISIBLE);
-                    gymImage.setVisibility(View.VISIBLE);
-                }, 3, TimeUnit.SECONDS);
-
-                scheduler.shutdown(); // Close when no longer needed
+                    runOnUiThread(() -> {
+                        benchUp.setVisibility(View.INVISIBLE);
+                        gymImage.setVisibility(View.VISIBLE);
+                    });
+                }, 1, TimeUnit.SECONDS); // Reduced to 1s for better feel
+                scheduler.shutdown();
             }
         });
 
     }
 
-    // REQUIRES: x <= max
     public void updateProgress(int x) {
         progressBar.setProgress(x);
     }
