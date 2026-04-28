@@ -7,12 +7,20 @@ import java.util.Map;
 
 public class WorkoutTracker {
 
+    private static WorkoutTracker instance = null;
     private Map<String, ExerciseTracker> exercises;
     private int xp;
     private int level;
     private int threshold;
 
-    public WorkoutTracker() {
+    public static WorkoutTracker getInstance() {
+        if (instance == null) {
+            instance = new WorkoutTracker();
+        }
+        return instance;
+    }
+
+    private WorkoutTracker() {
         exercises = new HashMap<>();
         xp = 0;
         level = 0;

@@ -1,5 +1,6 @@
 package com.example.gamifiedworkouttracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,17 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 
 public class TitleScreen extends AppCompatActivity {
 
     // fields
     WorkoutTracker workoutTracker;
     TextView textBox;
-    Button pumpIron;
+    Button selectExercise;
     ImageView benchUp;
     ImageView gymImage;
     ProgressBar progressBar;
@@ -43,24 +40,26 @@ public class TitleScreen extends AppCompatActivity {
         });
 
         // our stuff
-//        workoutTracker = new WorkoutTracker();
-//        initWidgets();
+        workoutTracker = WorkoutTracker.getInstance();
+        initWidgets();
 
     }
-//    private void initWidgets() {
-//        textBox = findViewById(R.id.textBox);
-//        pumpIron = findViewById(R.id.pumpIron);
-//        benchUp = findViewById(R.id.benchUp);
-//        gymImage = findViewById(R.id.gymImage);
-//        progressBar = findViewById(R.id.progressBar);
-//        progressBar.setMax(100);
-//        progressText = findViewById(R.id.progressText);
-//
-//
-//        pumpIron.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
+    private void initWidgets() {
+        textBox = findViewById(R.id.textBox);
+        selectExercise = findViewById(R.id.selectExerciseButton);
+        benchUp = findViewById(R.id.benchUp);
+        gymImage = findViewById(R.id.gymImage);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setMax(100);
+        progressText = findViewById(R.id.progressText);
+
+
+        selectExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TitleScreen.this, ExerciseSelectionScreen.class);
+                startActivity(intent);
+
 //                workoutTracker.doRep();
 //                int progress = workoutTracker.getProgress();
 //                progressBar.setProgress(progress);
@@ -69,8 +68,8 @@ public class TitleScreen extends AppCompatActivity {
 //
 //                benchUp.setVisibility(View.VISIBLE);
 //                gymImage.setVisibility(View.INVISIBLE);
-//
-//
+
+
 //                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 //                scheduler.schedule(() -> {
 //                    benchUp.setVisibility(View.INVISIBLE);
@@ -78,10 +77,10 @@ public class TitleScreen extends AppCompatActivity {
 //                }, 3, TimeUnit.SECONDS);
 //
 //                scheduler.shutdown(); // Close when no longer needed
-//            }
-//        });
-//
-//    }
+            }
+        });
+
+    }
 
 //    // REQUIRES: x <= max
 //    public void updateProgress(int x) {

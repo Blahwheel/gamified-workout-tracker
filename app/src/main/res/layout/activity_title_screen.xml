@@ -9,10 +9,10 @@
     tools:context=".TitleScreen">
 
     <Button
-        android:id="@+id/pumpIron"
+        android:id="@+id/selectExerciseButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Pump iron"
+        android:text="Select your exercise"
         android:textAllCaps="false"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
