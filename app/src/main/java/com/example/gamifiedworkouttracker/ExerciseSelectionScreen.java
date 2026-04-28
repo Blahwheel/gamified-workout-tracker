@@ -1,6 +1,9 @@
 package com.example.gamifiedworkouttracker;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +12,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class ExerciseSelectionScreen extends AppCompatActivity {
+
+    WorkoutTracker workoutTracker;
+    TextView selectExercise;
+    Button benchPress;
+    Button shoulderPress;
+    Button cableRow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +30,25 @@ public class ExerciseSelectionScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // our stuff
+        workoutTracker = WorkoutTracker.getInstance();
+        initWidgets();
     }
+
+    private void initWidgets() {
+        selectExercise = findViewById(R.id.selectExercise);
+        benchPress = findViewById(R.id.benchPress);
+        shoulderPress = findViewById(R.id.shoulderPress);
+        cableRow = findViewById(R.id.cableRow);
+
+        benchPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+            });
+
+    }
+
 }
