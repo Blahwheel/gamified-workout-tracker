@@ -12,6 +12,7 @@ public class WorkoutTracker {
     private int xp;
     private int level;
     private int threshold;
+    private String currentExercise;
 
     public static WorkoutTracker getInstance() {
         if (instance == null) {
@@ -54,6 +55,12 @@ public class WorkoutTracker {
     }
     public int getLevel() {
         return level;
+    }
+    public String getCurrentExercise() {
+        return currentExercise;
+    }
+    public void setCurrentExercise(String exercise) {
+        currentExercise = exercise;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.gamifiedworkouttracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,10 +46,30 @@ public class ExerciseSelectionScreen extends AppCompatActivity {
         benchPress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                workoutTracker.addExercise("bench_press", 1.0);
+                workoutTracker.setCurrentExercise("bench_press");
+                Intent intent = new Intent(ExerciseSelectionScreen.this, LiftingScreen.class);
+                startActivity(intent);
             }
             });
-
-    }
+        shoulderPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                workoutTracker.addExercise("shoulder_press", 3.0);
+                workoutTracker.setCurrentExercise("shoulder_press");
+                Intent intent = new Intent(ExerciseSelectionScreen.this, LiftingScreen.class);
+                startActivity(intent);
+            }
+            });
+        cableRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                workoutTracker.addExercise("cable_row", 1.0);
+                workoutTracker.setCurrentExercise("cable_row");
+                Intent intent = new Intent(ExerciseSelectionScreen.this, LiftingScreen.class);
+                startActivity(intent);
+            }
+            });
+        }
 
 }
