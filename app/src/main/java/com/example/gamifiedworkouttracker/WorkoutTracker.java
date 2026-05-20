@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+// Singleton class. Contains all information about the workout,
+// using a collection of ExerciseTrackers, each of which tracks data of a
+// single exercise.
 public class WorkoutTracker {
 
     private static WorkoutTracker instance = null;
@@ -37,6 +41,9 @@ public class WorkoutTracker {
         grantXP(exp);
 
     }
+
+    // Given an exercise name and its weight multiplier,
+    // create a new ExerciseTracker and add it to the map
     public void addExercise(String exerciseName, double weightMultiplier) {
         exercises.put(exerciseName, new ExerciseTracker(exerciseName, weightMultiplier));
     }
